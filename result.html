@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-lg p-4">
+            <h2 class="text-center text-primary mb-3">Prediction Result</h2>
+
+            <div class="alert {% if result == 'Heart Disease Detected' %}alert-danger{% else %}alert-success{% endif %} text-center fs-5">
+                <b>{{ result }}</b>
+            </div>
+
+            <p class="text-center"><b>Probability of Heart Disease:</b> {{ prob }}%</p>
+
+            <h4 class="mt-4">Top Contributing Factors</h4>
+            <ul class="list-group mb-4">
+                {% for r in reasons %}
+                    <li class="list-group-item">
+                        {{ r.feature }} : <b>{{ r.value }}</b> 
+                        <span class="text-muted">(importance: {{ "%.2f"|format(r.importance) }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="text-center">
+                <a href="/" class="btn btn-primary">🔙 Go Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
