@@ -9,3 +9,10 @@ plotly
 streamlit
 shap
 lime
+Flask
+gunicorn
+scikit-learn
+pandas
+numpy
+joblib
+
