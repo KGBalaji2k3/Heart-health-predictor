@@ -24,7 +24,7 @@ friendly_labels = {
     "restecg": "Resting ECG Results (0–2)",
     "thalach": "Maximum Heart Rate Achieved",
     "exang": "Exercise Induced Angina (1 = Yes, 0 = No)",
-    "oldpeak": "ST Depression (exercise vs rest)",
+    "oldpeak": "ST Depression (enter Numeric values)",
     "slope": "Slope of Peak Exercise ST Segment (0–2)",
     "ca": "Major Vessels Colored by Fluoroscopy (0–3)",
     "thal": "Thalassemia (1 = Normal, 2 = Fixed Defect, 3 = Reversible Defect)"
@@ -74,6 +74,7 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # use Render's port
     app.run(host="0.0.0.0", port=port)
     app.run(debug=True)
+
 
 
 
