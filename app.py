@@ -6,14 +6,14 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# Load model
+
 model = joblib.load("random_forest_model.pkl")
 
-# Load dataset to get feature names
+
 data = pd.read_csv("heart.csv")
 feature_names = list(data.drop(columns=['target']).columns)
 
-# Mapping technical -> user-friendly labels
+
 friendly_labels = {
     "age": "Age (years)",
     "sex": "Gender (0 = Female, 1 = Male)",
@@ -37,17 +37,17 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Collect values from form
+      
         values = [float(request.form[feature]) for feature in feature_names]
         values = np.array(values).reshape(1, -1)
 
-        # Prediction
+     
         prediction = model.predict(values)[0]
         probability = model.predict_proba(values)[0][1] * 100
 
         result = "Heart Disease Detected" if prediction == 1 else "No Heart Disease"
 
-        # --- Find top contributing factors ---
+    
         feature_importances = model.feature_importances_
         importance_df = pd.DataFrame({
             'feature': feature_names,
@@ -55,10 +55,10 @@ def predict():
             'importance': feature_importances
         }).sort_values(by='importance', ascending=False)
 
-        # Pick top 3 features
+       
         top_reasons = importance_df.head(3).to_dict(orient='records')
 
-        # Replace technical names with user-friendly ones
+
         for r in top_reasons:
             r['feature'] = friendly_labels[r['feature']]
 
@@ -74,5 +74,6 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # use Render's port
     app.run(host="0.0.0.0", port=port)
     app.run(debug=True)
+
 
 
